@@ -1,8 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'core/di/service_locator.dart';
+import 'data/token/models/request/address_information.dart';
+import 'data/token/repositories/token_repo.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'data/utils/database/local_storage_manager.dart';
+//
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await dotenv.load();
+//   setupLocator();
+//   runApp(const MyApp());
+// }
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await dotenv.load(fileName: ".env");
+  await setupLocator();
+
+  // Test LocalDB first
+  await testLocalStorage();
+
+  // Test API
+  await testAPI();
+
+  runApp(MyApp());
 }
+
+Future<void> testLocalStorage() async {
+  print('Testing SharedPreferences...');
+
+  final storage = getIt<LocalStorageManager>();
+
+  // Save test data
+  final saved = await storage.saveTokens(
+    walletAddress: '0x86bBF3f5B7fd6bB206f0070fAcF88556aB905088',
+    tokens: [],
+  );
+
+  print(saved ? 'Save SUCCESS' : 'Save FAILED');
+
+  // Retrieve
+  final cached = await storage.getTokens('0x86bBF3f5B7fd6bB206f0070fAcF88556aB905088');
+  print(cached != null ? 'Retrieve SUCCESS' : 'Retrieve FAILED');
+}
+
+Future<void> testAPI() async {
+  final tokenRepo = getIt<TokenRepo>();
+  final walletAddress = '0x86bBF3f5B7fd6bB206f0070fAcF88556aB905088';
+
+  try {
+    print('Testing API...');
+    final tokens = await tokenRepo.getTokens(
+      addresses: [
+        AddressInformation(
+          address: walletAddress,
+          networks: ['eth-mainnet'],
+        ),
+      ],
+      forceRefresh: true,
+    );
+    print('✅ Success! Got ${tokens.length} tokens');
+    for (var token in tokens) {
+      print('- ${token.tokenMetadata?.symbol ?? "ETH"}');
+    }
+  } catch (e) {
+    print('❌ Error: $e');
+  }
+}
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
