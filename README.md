@@ -10,8 +10,6 @@ A Flutter application that displays cryptocurrency wallet balances from the Ethe
 - [Setup](#setup)
 - [Running the App](#running-the-app)
 - [Running Tests](#running-tests)
-- [Project Structure](#project-structure)
-- [Key Technologies](#key-technologies)
 
 ## ✨ Features
 
@@ -31,26 +29,27 @@ This project follows **Clean Architecture** principles with clear separation of 
 
 ### Layers
 
+```text
 ┌─────────────────────────────────────┐
 │     Presentation Layer (UI)         │
-│  - Screens (BalancesScreen)         │
+│  - Screens (e.g. BalancesScreen)    │
 │  - BLoC (State Management)          │
 └─────────────────────────────────────┘
-↓
+                ↓
 ┌─────────────────────────────────────┐
-│       Domain Layer (Business)        │
-│  - Repository Interfaces             │
-│  - Models                            │
-│  - Use Cases (implied)               │
+│       Domain Layer (Business)       │
+│  - Repository Interfaces            │
+│  - Models                           │
+│  - Use Cases (optional/implicit)    │
 └─────────────────────────────────────┘
-↓
+                ↓
 ┌─────────────────────────────────────┐
-│        Data Layer (Sources)          │
-│  - Repository Implementation         │
-│  - Remote API (Alchemy)              │
-│  - Local Storage (SharedPreferences) │
+│        Data Layer (Sources)         │
+│  - Repository Implementation        │
+│  - Remote API (Alchemy)             │
+│  - Local Storage (SharedPreferences)│
 └─────────────────────────────────────┘
-
+```
 ### Key Architectural Decisions
 
 #### 1. **BLoC Pattern for State Management**
@@ -138,13 +137,13 @@ genhtml coverage/lcov.info -o coverage/html
 open coverage/html/index.html
 ```
 
-📝 License
+## 📝 License
 This project is created for assignment purposes.
 
-👤 Author
+## 👤 Author
 Karan Singh Narula
 
-🙏 Acknowledgments
+## 🙏 Acknowledgments
 [Alchemy](https://www.alchemy.com) API for blockchain data
 [Flutter](https://flutter.dev/) for the amazing framework
 [BLoC](https://bloclibrary.dev/) Pattern for state management guidance
