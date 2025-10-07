@@ -33,7 +33,7 @@ class WalletUtils {
   /// Example: 0.004321 → "0.0043" (4 decimals)
   static String getFormattedBalance(
       TokenInformation token, {
-        int decimalPlaces = 4,
+        int decimalPlaces = 10,
       }) {
     final decimals = token.tokenMetadata?.decimals ?? 18;
     final balance = convertHexBalanceToDouble(token.tokenBalance, decimals);
@@ -125,25 +125,5 @@ class WalletUtils {
       return 'Ethereum';
     }
     return token.tokenMetadata?.name ?? 'Unknown Token';
-  }
-
-  /// Filter tokens with non-zero balance
-  static List<TokenInformation> filterNonZeroBalances(List<TokenInformation> tokens) {
-    return tokens.where((token) {
-      final decimals = token.tokenMetadata?.decimals ?? 18;
-      final balance = convertHexBalanceToDouble(token.tokenBalance, decimals);
-      return balance > 0;
-    }).toList();
-  }
-
-  /// Sort tokens by USD value (descending)
-  static List<TokenInformation> sortByUSDValue(List<TokenInformation> tokens) {
-    final sortedTokens = List<TokenInformation>.from(tokens);
-    sortedTokens.sort((a, b) {
-      final valueA = calculateTokenUSDValue(a);
-      final valueB = calculateTokenUSDValue(b);
-      return valueB.compareTo(valueA); // Descending order
-    });
-    return sortedTokens;
   }
 }

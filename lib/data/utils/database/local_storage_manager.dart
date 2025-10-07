@@ -44,15 +44,4 @@ class LocalStorageManager {
       return null;
     }
   }
-
-  /// Check if cache exists
-  Future<bool> hasCachedTokens(String walletAddress) async {
-    final tokens = await getTokens(walletAddress);
-    return tokens != null && tokens.isNotEmpty;
-  }
-
-  /// Clear all cache
-  Future<bool> clearCache() async {
-    return await _prefs.remove(_cachedTokensKey);
-  }
 }
