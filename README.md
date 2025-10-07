@@ -111,11 +111,11 @@ Get Alchemy API Key:
 ```bash
 flutter pub run build_runner build --delete-conflicting-outputs
 ```
-🚀 Run the App
+## 🚀 Run the App
 ```bash
 flutter run
 ```
-🧪 Running Tests
+## 🧪 Running Tests
 ```bash
 flutter test
 ```
@@ -144,6 +144,6 @@ This project is created for assignment purposes.
 Karan Singh Narula
 
 ## 🙏 Acknowledgments
-[Alchemy](https://www.alchemy.com) API for blockchain data
-[Flutter](https://flutter.dev/) for the amazing framework
-[BLoC](https://bloclibrary.dev/) Pattern for state management guidance
+- [Alchemy](https://www.alchemy.com) API for blockchain data  
+- [Flutter](https://flutter.dev/) for the amazing framework  
+- [BLoC](https://bloclibrary.dev/) Pattern for state management guidance  
